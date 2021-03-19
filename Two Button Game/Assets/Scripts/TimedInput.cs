@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TimedInput : MonoBehaviour
+/*public class TimedInput : MonoBehaviour
 {
-    public GameObject SelectionIndicator;
+   
+     * public GameObject SelectionIndicator;
     public GameObject OptionButton1;
     public GameObject OptionButton2;
     public GameObject OptionButton3;
@@ -71,3 +72,4 @@ public class TimedInput : MonoBehaviour
         }
     }
 }
+*/
