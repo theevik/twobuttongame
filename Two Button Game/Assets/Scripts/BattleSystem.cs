@@ -183,7 +183,7 @@ public class BattleSystem : MonoBehaviour
             }
 
             // Hide the panel
-           gameObject.SetActive(false);
+           //gameObject.SetActive(false);
 
 
         }
