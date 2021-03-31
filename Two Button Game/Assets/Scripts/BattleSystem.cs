@@ -3,22 +3,38 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//the battle state are the turns of the game. This is what makes this game's combat turn-based
 public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
+
+//the Character state is so we can switch between characters.
+public enum CharacterState { Aero, Naiden, Beta, Frost }
 
 public class BattleSystem : MonoBehaviour
 {
 
     public BattleState state;
 
-    public GameObject playerPrefab;
+    public GameObject playerPrefab, playerPrefab1, playerPrefab2, playerPrefab3;
     public GameObject enemyPrefab;
 
     public Text dialogueText;
 
+    //refers to the unit scripts (we need them to give stats to each character/enemy)
+
     Unit playerUnit;
+    Unit1 player1Unit;
+    Unit2 player2Unit;
+    Unit3 player3Unit;
+
     Unit enemyUnit;
 
+    //refers to the battle hud scripts (with them we transfer the character/enemy stats to their huds)
+
     public BattleHUD playerHUD;
+    public BattleHUD1 player1HUD;
+    public BattleHUD2 player2HUD;
+    public BattleHUD3 player3HUD;
+
     public BattleHUD enemyHUD;
 
     public GameObject SelectionIndicator;
@@ -42,37 +58,52 @@ public class BattleSystem : MonoBehaviour
     }
 
 
+    //this is the initial state of the game, spawns the characters that will participate in the battle.
+
    IEnumerator SetupBattle()
     {
+
+       
+       
         GameObject playerGO = Instantiate(playerPrefab);
         playerUnit = playerGO.GetComponent<Unit>();
+
+        GameObject player1GO = Instantiate(playerPrefab1);
+        player1Unit = player1GO.GetComponent<Unit1>();
+
+        GameObject player2GO = Instantiate(playerPrefab2);
+        player2Unit = player2GO.GetComponent<Unit2>();
+
+        GameObject player3GO = Instantiate(playerPrefab3);
+        player3Unit = player3GO.GetComponent<Unit3>();
 
         GameObject enemyGO = Instantiate(enemyPrefab);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-        dialogueText.text = "Battle Starts";
+        dialogueText.text = "PREPARE FOR BATTLE";
 
         playerHUD.SetHUD(playerUnit);
+        player1HUD.SetHUD1(player1Unit);
+        player2HUD.SetHUD2(player2Unit);
+        player3HUD.SetHUD3(player3Unit);
+
         enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(2f);
         state = BattleState.PLAYERTURN;
         PlayerTurn();
         
-
-
-
     }
+
+    
 
     IEnumerator PlayerAttack()
     {
         
-
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-
-        
+                
 
         yield return new WaitForSeconds(2f);
 
@@ -87,6 +118,8 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+
+    //the enemy turn, currently the enemy can simply just hit back, NEEDS WORK!!!!
     IEnumerator EnemyTurn()
     {
         dialogueText.text = "Enemy Is Attacking";
@@ -179,7 +212,11 @@ public class BattleSystem : MonoBehaviour
             }
             if (currentSelection == 2)
             {
-                Debug.Log("you selected the third option");
+
+                
+
+
+              
             }
 
             // Hide the panel
