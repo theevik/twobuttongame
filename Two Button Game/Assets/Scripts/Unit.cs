@@ -10,6 +10,7 @@ public class Unit : MonoBehaviour
     public int damage;
     public int maxHP;
     public int currentHP;
+    public int healing;
 
     public bool TakeDamage(int dmg)
     {
@@ -19,6 +20,16 @@ public class Unit : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    public bool Heal(int healing)
+    {
+        currentHP += healing;
+        if (currentHP <= 60)
+            return true;
+        else
+            return false;
+
     }
 
 }

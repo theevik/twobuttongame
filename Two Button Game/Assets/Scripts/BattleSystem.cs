@@ -13,6 +13,7 @@ public class BattleSystem : MonoBehaviour
 {
 
     public BattleState state;
+    public CharacterState charState;
 
     public GameObject playerPrefab, playerPrefab1, playerPrefab2, playerPrefab3;
     public GameObject enemyPrefab;
@@ -47,6 +48,7 @@ public class BattleSystem : MonoBehaviour
     public float timer;
     public GameObject Player;
 
+    public int healAbility = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -60,25 +62,27 @@ public class BattleSystem : MonoBehaviour
 
     //this is the initial state of the game, spawns the characters that will participate in the battle.
 
+    
    IEnumerator SetupBattle()
     {
 
        
        
-        GameObject playerGO = Instantiate(playerPrefab);
-        playerUnit = playerGO.GetComponent<Unit>();
+       GameObject playerGO = playerPrefab;
+       playerUnit = playerGO.GetComponent<Unit>();
 
-        GameObject player1GO = Instantiate(playerPrefab1);
+        GameObject player1GO = playerPrefab1;
         player1Unit = player1GO.GetComponent<Unit1>();
 
-        GameObject player2GO = Instantiate(playerPrefab2);
+        GameObject player2GO = playerPrefab2;
         player2Unit = player2GO.GetComponent<Unit2>();
 
-        GameObject player3GO = Instantiate(playerPrefab3);
+        GameObject player3GO = playerPrefab3;
         player3Unit = player3GO.GetComponent<Unit3>();
 
         GameObject enemyGO = Instantiate(enemyPrefab);
         enemyUnit = enemyGO.GetComponent<Unit>();
+       
 
         dialogueText.text = "PREPARE FOR BATTLE";
 
@@ -91,6 +95,7 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
         state = BattleState.PLAYERTURN;
+        charState = CharacterState.Aero;
         PlayerTurn();
         
     }
@@ -99,47 +104,209 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
-        
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
-
-        enemyHUD.SetHP(enemyUnit.currentHP);
-                
-
-        yield return new WaitForSeconds(2f);
-
-        if(isDead)
+        if (charState == CharacterState.Aero)
         {
-            state = BattleState.WON;
-            EndBattle();
-        } else
+            bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+
+            enemyHUD.SetHP(enemyUnit.currentHP);
+
+
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
+        }
+        else if(charState == CharacterState.Naiden)
         {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            bool isDead = enemyUnit.TakeDamage(player1Unit.damage);
+
+            enemyHUD.SetHP(enemyUnit.currentHP);
+
+
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
+        }
+
+        else if (charState == CharacterState.Beta)
+        {
+            bool isDead = enemyUnit.TakeDamage(player2Unit.damage);
+
+            enemyHUD.SetHP(enemyUnit.currentHP);
+
+
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
+        }
+
+        else if (charState == CharacterState.Frost)
+        {
+            bool isDead = enemyUnit.TakeDamage(player3Unit.damage);
+
+            enemyHUD.SetHP(enemyUnit.currentHP);
+
+
+            yield return new WaitForSeconds(2f);
+
+            if (isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
         }
     }
 
-
+     
     //the enemy turn, currently the enemy can simply just hit back, NEEDS WORK!!!!
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = "Enemy Is Attacking";
 
-        yield return new WaitForSeconds(2f);
-
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-
-        playerHUD.SetHP(playerUnit.currentHP);
-
-        yield return new WaitForSeconds(1f);
-
-        if(isDead)
+        //enemy heals once when under 60 health
+        if (enemyUnit.currentHP <= 60 && healAbility > 0)
         {
-            state = BattleState.LOST;
-            EndBattle();
-        } else
+            enemyUnit.Heal(enemyUnit.healing);
+            healAbility = 0;
+
+            enemyHUD.SetHP(enemyUnit.currentHP);
+        }
+
+        if (charState == CharacterState.Aero)
         {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            dialogueText.text = "Enemy Is Attacking";
+
+            yield return new WaitForSeconds(2f);
+
+
+          
+           
+
+
+            bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+
+            playerHUD.SetHP(playerUnit.currentHP);
+
+            yield return new WaitForSeconds(1f);
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+        }
+        else if (charState == CharacterState.Naiden)
+        {
+            dialogueText.text = "Enemy Is Attacking";
+
+            yield return new WaitForSeconds(2f);
+
+
+
+
+            bool isDead = player1Unit.TakeDamage(enemyUnit.damage);
+
+            player1HUD.SetHP1(player1Unit.currentHP);
+
+            yield return new WaitForSeconds(1f);
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+        }
+        else if (charState == CharacterState.Beta)
+        {
+            dialogueText.text = "Enemy Is Attacking";
+
+            yield return new WaitForSeconds(2f);
+
+
+
+
+            bool isDead = player2Unit.TakeDamage(enemyUnit.damage);
+
+            player2HUD.SetHP2(player2Unit.currentHP);
+
+            yield return new WaitForSeconds(1f);
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
+        }
+        else if(charState == CharacterState.Frost)
+        {
+            dialogueText.text = "Enemy Is Attacking";
+
+            yield return new WaitForSeconds(2f);
+
+
+
+
+            bool isDead = player3Unit.TakeDamage(enemyUnit.damage);
+
+            player3HUD.SetHP3(player3Unit.currentHP);
+
+            yield return new WaitForSeconds(1f);
+
+            if (isDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN;
+                PlayerTurn();
+            }
         }
     }
     
@@ -167,6 +334,8 @@ public class BattleSystem : MonoBehaviour
 
         StartCoroutine(PlayerAttack());
     }
+
+    
 
     void Update()
     {
@@ -210,19 +379,79 @@ public class BattleSystem : MonoBehaviour
             {
                 Debug.Log("you selected the second option");
             }
-            if (currentSelection == 2)
+            
+            //the character switch button
+
+            if (currentSelection == 2 && charState == CharacterState.Aero)
             {
 
-                
+                Debug.Log("Switch to Naiden");
+                charState = CharacterState.Naiden;
 
+                //switching stat panels
+                player1HUD.transform.localPosition = new Vector3(-409  , 87, 0);
+                playerHUD.transform.localPosition = new Vector3(-1600 ,0 ,0);
 
-              
+                //switching the characters
+                playerPrefab.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab1.transform.localPosition = new Vector3(-3, 1, -6);
+
+            }
+           
+
+            else if (currentSelection == 2 && charState == CharacterState.Naiden)
+            {
+
+                Debug.Log("Switch to Beta");
+                charState = CharacterState.Beta;
+
+                //switching stat panels
+                player2HUD.transform.localPosition = new Vector3(-409, 87, 0);
+                player1HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+                //switching the characters
+                playerPrefab1.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab2.transform.localPosition = new Vector3(-3, 1, -6);
             }
 
+            else if (currentSelection == 2 && charState == CharacterState.Beta)
+            {
+
+                Debug.Log("Switch to Frost");
+                charState = CharacterState.Frost;
+
+                //switching stat panels
+                player3HUD.transform.localPosition = new Vector3(-409, 87, 0);
+                player2HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+                //switching the characters
+                playerPrefab2.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab3.transform.localPosition = new Vector3(-3, 1, -6);
+
+            }
+
+            else if (currentSelection == 2 && charState == CharacterState.Frost)
+            {
+
+                Debug.Log("Switch to Aero");
+                charState = CharacterState.Aero;
+
+                //switching stat panels
+                playerHUD.transform.localPosition = new Vector3(-409, 87, 0);
+                player3HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+                //switching the characters
+                playerPrefab3.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab.transform.localPosition = new Vector3(-3, 1, -6);
+
+            }
+
+
+          
             // Hide the panel
-           //gameObject.SetActive(false);
+            //gameObject.SetActive(false);
 
-
+            
         }
     }
 }
