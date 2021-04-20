@@ -111,7 +111,7 @@ public class BattleSystem : MonoBehaviour
             enemyHUD.SetHP(enemyUnit.currentHP);
 
 
-            yield return new WaitForSeconds(2f);
+            //yield return new WaitForSeconds(2f);
 
             if (isDead)
             {
@@ -131,7 +131,7 @@ public class BattleSystem : MonoBehaviour
             enemyHUD.SetHP(enemyUnit.currentHP);
 
 
-            yield return new WaitForSeconds(2f);
+            //yield return new WaitForSeconds(2f);
 
             if (isDead)
             {
@@ -152,7 +152,7 @@ public class BattleSystem : MonoBehaviour
             enemyHUD.SetHP(enemyUnit.currentHP);
 
 
-            yield return new WaitForSeconds(2f);
+            //yield return new WaitForSeconds(2f);
 
             if (isDead)
             {
@@ -173,7 +173,7 @@ public class BattleSystem : MonoBehaviour
             enemyHUD.SetHP(enemyUnit.currentHP);
 
 
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(0f);
 
             if (isDead)
             {
@@ -192,6 +192,7 @@ public class BattleSystem : MonoBehaviour
     //the enemy turn, currently the enemy can simply just hit back, NEEDS WORK!!!!
     IEnumerator EnemyTurn()
     {
+        yield return new WaitForSeconds(2f);
 
         //enemy heals once when under 60 health
         if (enemyUnit.currentHP <= 60 && healAbility > 0)
@@ -364,7 +365,7 @@ public class BattleSystem : MonoBehaviour
             SelectionIndicator.transform.localPosition = new Vector3(-100, -40, 0);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) & state == BattleState.PLAYERTURN)
         {
             if (currentSelection == 0)
             {
