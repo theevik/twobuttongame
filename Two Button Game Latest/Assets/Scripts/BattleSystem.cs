@@ -43,6 +43,8 @@ public class BattleSystem : MonoBehaviour
     public GameObject OptionButton2;
     public GameObject OptionButton3;
 
+    public GameObject ActionsMenu;
+
     public int selectionChangeDelay = 2;
     public int currentSelection = 0;
     public float timer;
@@ -104,8 +106,12 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        
+
         if (charState == CharacterState.Aero)
         {
+            
+
             bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
             enemyHUD.SetHP(enemyUnit.currentHP);
@@ -192,9 +198,41 @@ public class BattleSystem : MonoBehaviour
     //the enemy turn, currently the enemy can simply just hit back, NEEDS WORK!!!!
     IEnumerator EnemyTurn()
     {
+        ActionsMenu.SetActive(false);
+
+
         yield return new WaitForSeconds(2f);
 
+      
+
+        
+
+        if (playerUnit.mana <= 90 )
+        {
+            playerUnit.GainMana(playerUnit.gainmana);
+            playerHUD.SetMana(playerUnit.mana);
+        }
+
+        if (player1Unit.mana <= 90 )
+        {
+            player1Unit.GainMana1(player1Unit.gainmana);
+            player1HUD.SetMana1(player1Unit.mana);
+        }
+
+        if (player2Unit.mana <= 90)
+        {
+            player2Unit.GainMana2(player2Unit.gainmana);
+            player2HUD.SetMana2(player2Unit.mana);
+        }
+
+        if (player3Unit.mana <= 90)
+        {
+            player3Unit.GainMana3(player3Unit.gainmana);
+            player3HUD.SetMana3(player3Unit.mana);
+        }
+
         //enemy heals once when under 60 health
+
         if (enemyUnit.currentHP <= 60 && healAbility > 0)
         {
             enemyUnit.Heal(enemyUnit.healing);
@@ -325,6 +363,7 @@ public class BattleSystem : MonoBehaviour
       void PlayerTurn()
     {
         dialogueText.text = "YOUR TURN";
+        ActionsMenu.SetActive(true);
     }
 
 
@@ -376,11 +415,43 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(PlayerAttack());
 
             }
-            if (currentSelection == 1)
+            if (currentSelection == 1 && playerUnit.mana >= 33)
             {
-                Debug.Log("you selected the second option");
+                if (charState == CharacterState.Aero)
+                {
+
+                    playerUnit.ConsumeMana(playerUnit.losemana);
+                    playerHUD.SetMana(playerUnit.mana);
+
+                    StartCoroutine(PlayerAttack());
+                }
+                
+                else if (charState == CharacterState.Naiden)
+                {
+                    player1Unit.ConsumeMana1(player1Unit.losemana);
+                    player1HUD.SetMana1(player1Unit.mana);
+
+                    StartCoroutine(PlayerAttack());
+                }
+
+                else if (charState == CharacterState.Beta)
+                {
+                    player2Unit.ConsumeMana2(player2Unit.losemana);
+                    player2HUD.SetMana2(player2Unit.mana);
+
+                    StartCoroutine(PlayerAttack());
+                }
+
+                else if (charState == CharacterState.Frost)
+                {
+                    player3Unit.ConsumeMana3(player3Unit.losemana);
+                    player3HUD.SetMana3(player3Unit.mana);
+
+                    StartCoroutine(PlayerAttack());
+                }
+
             }
-            
+
             //the character switch button
 
             if (currentSelection == 2 && charState == CharacterState.Aero)

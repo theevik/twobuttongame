@@ -8,6 +8,8 @@ public class BattleHUD3 : MonoBehaviour
     public Text nameText3;
     public Text levelText3;
     public Slider hpSlider3;
+    public Slider manaSlider3;
+
 
     public void SetHUD3(Unit3 unit3)
     {
@@ -15,6 +17,8 @@ public class BattleHUD3 : MonoBehaviour
         levelText3.text = "lvl" + unit3.unitLevel;
         hpSlider3.maxValue = unit3.maxHP;
         hpSlider3.value = unit3.currentHP;
+        manaSlider3.maxValue = unit3.maxMana;
+        manaSlider3.value = unit3.mana;
     }
 
     public void SetHP3(int hp)
@@ -22,5 +26,9 @@ public class BattleHUD3 : MonoBehaviour
         hpSlider3.value = hp;
     }
 
+    public void SetMana3(int m)
+    {
+        manaSlider3.value = m;
+    }
 
 }

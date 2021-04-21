@@ -8,6 +8,7 @@ public class BattleHUD2 : MonoBehaviour
     public Text nameText2;
     public Text levelText2;
     public Slider hpSlider2;
+    public Slider manaSlider2;
 
     public void SetHUD2(Unit2 unit2)
     {
@@ -15,6 +16,8 @@ public class BattleHUD2 : MonoBehaviour
         levelText2.text = "lvl" + unit2.unitLevel;
         hpSlider2.maxValue = unit2.maxHP;
         hpSlider2.value = unit2.currentHP;
+        manaSlider2.maxValue = unit2.maxMana;
+        manaSlider2.value = unit2.mana;
     }
 
     public void SetHP2(int hp)
@@ -22,5 +25,9 @@ public class BattleHUD2 : MonoBehaviour
         hpSlider2.value = hp;
     }
 
+    public void SetMana2(int m)
+    {
+        manaSlider2.value = m;
+    }
 
 }
