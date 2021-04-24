@@ -4,7 +4,11 @@
 PlayerSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 20
+<<<<<<< HEAD
   productGUID: fa6c4254a558f944e92a9eba898df959
+=======
+  productGUID: 29f16c6b1a018f342a1ea552f9df20ba
+>>>>>>> Viktor
   AndroidProfiler: 0
   AndroidFilterTouchesWhenObscured: 0
   AndroidEnableSustainedPerformanceMode: 0
@@ -13,7 +17,11 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
+<<<<<<< HEAD
   productName: Two Button Game
+=======
+  productName: Two Button Game Latest
+>>>>>>> Viktor
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -525,14 +533,22 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
+<<<<<<< HEAD
   metroPackageName: Two Button Game
+=======
+  metroPackageName: Two Button Game Latest
+>>>>>>> Viktor
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
+<<<<<<< HEAD
   metroApplicationDescription: Two Button Game
+=======
+  metroApplicationDescription: Two Button Game Latest
+>>>>>>> Viktor
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
