@@ -9,11 +9,21 @@ public enum BattleState {START, PLAYERTURN, ENEMYTURN, WON, LOST }
 //the Character state is so we can switch between characters.
 public enum CharacterState { Aero, Naiden, Beta, Frost }
 
+<<<<<<< HEAD
+=======
+public enum ButtonState {Combat, Switch }
+
+>>>>>>> Viktor
 public class BattleSystem : MonoBehaviour
 {
 
     public BattleState state;
     public CharacterState charState;
+<<<<<<< HEAD
+=======
+    public ButtonState bState;
+
+>>>>>>> Viktor
 
     public GameObject playerPrefab, playerPrefab1, playerPrefab2, playerPrefab3;
     public GameObject enemyPrefab;
@@ -44,12 +54,28 @@ public class BattleSystem : MonoBehaviour
     public GameObject OptionButton3;
 
     public GameObject ActionsMenu;
+<<<<<<< HEAD
+=======
+    public GameObject CharacterSelectionMenu;
+>>>>>>> Viktor
 
     public int selectionChangeDelay = 2;
     public int currentSelection = 0;
     public float timer;
     public GameObject Player;
 
+<<<<<<< HEAD
+=======
+    //chararcter selection button variables
+    public GameObject CharSelectionIndicator;
+
+    public int CharselectionChangeDelay = 2;
+    public int CharcurrentSelection = 0;
+    public float Chartimer;
+
+
+
+>>>>>>> Viktor
     public int healAbility = 1;
 
     // Start is called before the first frame update
@@ -64,6 +90,7 @@ public class BattleSystem : MonoBehaviour
 
     //this is the initial state of the game, spawns the characters that will participate in the battle.
 
+<<<<<<< HEAD
     
    IEnumerator SetupBattle()
     {
@@ -72,6 +99,16 @@ public class BattleSystem : MonoBehaviour
        
        GameObject playerGO = playerPrefab;
        playerUnit = playerGO.GetComponent<Unit>();
+=======
+
+    IEnumerator SetupBattle()
+    {
+
+        CharacterSelectionMenu.SetActive(false);
+
+        GameObject playerGO = playerPrefab;
+        playerUnit = playerGO.GetComponent<Unit>();
+>>>>>>> Viktor
 
         GameObject player1GO = playerPrefab1;
         player1Unit = player1GO.GetComponent<Unit1>();
@@ -84,7 +121,11 @@ public class BattleSystem : MonoBehaviour
 
         GameObject enemyGO = Instantiate(enemyPrefab);
         enemyUnit = enemyGO.GetComponent<Unit>();
+<<<<<<< HEAD
        
+=======
+
+>>>>>>> Viktor
 
         dialogueText.text = "PREPARE FOR BATTLE";
 
@@ -98,6 +139,7 @@ public class BattleSystem : MonoBehaviour
         yield return new WaitForSeconds(2f);
         state = BattleState.PLAYERTURN;
         charState = CharacterState.Aero;
+<<<<<<< HEAD
         PlayerTurn();
         
     }
@@ -111,6 +153,22 @@ public class BattleSystem : MonoBehaviour
         if (charState == CharacterState.Aero)
         {
             
+=======
+        bState = ButtonState.Combat;
+        PlayerTurn();
+
+    }
+
+
+
+    IEnumerator PlayerAttack()
+    {
+
+
+        if (charState == CharacterState.Aero)
+        {
+
+>>>>>>> Viktor
 
             bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
@@ -130,7 +188,11 @@ public class BattleSystem : MonoBehaviour
                 StartCoroutine(EnemyTurn());
             }
         }
+<<<<<<< HEAD
         else if(charState == CharacterState.Naiden)
+=======
+        else if (charState == CharacterState.Naiden)
+>>>>>>> Viktor
         {
             bool isDead = enemyUnit.TakeDamage(player1Unit.damage);
 
@@ -194,7 +256,11 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
      
+=======
+
+>>>>>>> Viktor
     //the enemy turn, currently the enemy can simply just hit back, NEEDS WORK!!!!
     IEnumerator EnemyTurn()
     {
@@ -203,17 +269,29 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
+<<<<<<< HEAD
       
 
         
 
         if (playerUnit.mana <= 90 )
+=======
+
+
+
+
+        if (playerUnit.mana <= 90)
+>>>>>>> Viktor
         {
             playerUnit.GainMana(playerUnit.gainmana);
             playerHUD.SetMana(playerUnit.mana);
         }
 
+<<<<<<< HEAD
         if (player1Unit.mana <= 90 )
+=======
+        if (player1Unit.mana <= 90)
+>>>>>>> Viktor
         {
             player1Unit.GainMana1(player1Unit.gainmana);
             player1HUD.SetMana1(player1Unit.mana);
@@ -248,8 +326,13 @@ public class BattleSystem : MonoBehaviour
             yield return new WaitForSeconds(2f);
 
 
+<<<<<<< HEAD
           
            
+=======
+
+
+>>>>>>> Viktor
 
 
             bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
@@ -321,7 +404,11 @@ public class BattleSystem : MonoBehaviour
                 PlayerTurn();
             }
         }
+<<<<<<< HEAD
         else if(charState == CharacterState.Frost)
+=======
+        else if (charState == CharacterState.Frost)
+>>>>>>> Viktor
         {
             dialogueText.text = "Enemy Is Attacking";
 
@@ -348,7 +435,11 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> Viktor
     void EndBattle()
     {
         if (state == BattleState.WON)
@@ -356,11 +447,19 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "YOU WON";
         }
         else if (state == BattleState.LOST)
+<<<<<<< HEAD
             {
             dialogueText.text = "YOU LOST";
         }
     }
       void PlayerTurn()
+=======
+        {
+            dialogueText.text = "YOU LOST";
+        }
+    }
+    void PlayerTurn()
+>>>>>>> Viktor
     {
         dialogueText.text = "YOUR TURN";
         ActionsMenu.SetActive(true);
@@ -375,7 +474,11 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerAttack());
     }
 
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> Viktor
 
     void Update()
     {
@@ -385,7 +488,11 @@ public class BattleSystem : MonoBehaviour
             timer = selectionChangeDelay;
 
             currentSelection = currentSelection + 1;
+<<<<<<< HEAD
             if (currentSelection > 2)
+=======
+            if (currentSelection > 3)
+>>>>>>> Viktor
             {
                 currentSelection = 0;
             }
@@ -393,6 +500,7 @@ public class BattleSystem : MonoBehaviour
 
         if (currentSelection == 0)
         {
+<<<<<<< HEAD
             SelectionIndicator.transform.localPosition = new Vector3(-100, 40, 0);
         }
         if (currentSelection == 1)
@@ -405,6 +513,25 @@ public class BattleSystem : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Space) & state == BattleState.PLAYERTURN)
+=======
+            SelectionIndicator.transform.localPosition = new Vector3(-100, 60, 0);
+        }
+        if (currentSelection == 1)
+        {
+            SelectionIndicator.transform.localPosition = new Vector3(-100, 20, 0);
+        }
+        if (currentSelection == 2)
+        {
+            SelectionIndicator.transform.localPosition = new Vector3(-100, -20, 0);
+        }
+
+        if (currentSelection == 3)
+        {
+            SelectionIndicator.transform.localPosition = new Vector3(-100, -60, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) & state == BattleState.PLAYERTURN & bState == ButtonState.Combat)
+>>>>>>> Viktor
         {
             if (currentSelection == 0)
             {
@@ -425,7 +552,11 @@ public class BattleSystem : MonoBehaviour
 
                     StartCoroutine(PlayerAttack());
                 }
+<<<<<<< HEAD
                 
+=======
+
+>>>>>>> Viktor
                 else if (charState == CharacterState.Naiden)
                 {
                     player1Unit.ConsumeMana1(player1Unit.losemana);
@@ -454,7 +585,11 @@ public class BattleSystem : MonoBehaviour
 
             //the character switch button
 
+<<<<<<< HEAD
             if (currentSelection == 2 && charState == CharacterState.Aero)
+=======
+            /*if (currentSelection == 2 && charState == CharacterState.Aero)
+>>>>>>> Viktor
             {
 
                 Debug.Log("Switch to Naiden");
@@ -517,6 +652,7 @@ public class BattleSystem : MonoBehaviour
                 playerPrefab.transform.localPosition = new Vector3(-3, 1, -6);
 
             }
+<<<<<<< HEAD
 
 
           
@@ -524,6 +660,163 @@ public class BattleSystem : MonoBehaviour
             //gameObject.SetActive(false);
 
             
+=======
+            */
+
+
+            // Hide the panel
+            //gameObject.SetActive(false);
+
+            if (currentSelection == 3)
+            {
+                ActionsMenu.SetActive(false);
+                CharacterSelectionMenu.SetActive(true);
+                bState = ButtonState.Switch;
+            }
+
+
+
+        }
+
+
+        /* Chartimer = Chartimer - Time.deltaTime;
+         if (Chartimer <= 0.0f)
+         {
+             Chartimer = CharselectionChangeDelay;
+
+             CharcurrentSelection = CharcurrentSelection + 1;
+             if (CharcurrentSelection > 3)
+             {
+                 CharcurrentSelection = 0;
+             }
+
+         }*/
+
+        CharcurrentSelection = currentSelection;
+
+
+        if (CharcurrentSelection == 0)
+        {
+            CharSelectionIndicator.transform.localPosition = new Vector3(-100, 60, 0);
+        }
+        if (CharcurrentSelection == 1)
+        {
+            CharSelectionIndicator.transform.localPosition = new Vector3(-100, 20, 0);
+        }
+        if (CharcurrentSelection == 2)
+        {
+            CharSelectionIndicator.transform.localPosition = new Vector3(-100, -20, 0);
+        }
+        if (CharcurrentSelection == 3)
+        {
+            CharSelectionIndicator.transform.localPosition = new Vector3(-100, -60, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) & state == BattleState.PLAYERTURN)
+        {
+            if (CharcurrentSelection == 0 & bState == ButtonState.Switch)
+            {
+                //aero
+                charState = CharacterState.Frost;
+                bState = ButtonState.Combat;
+
+
+                ActionsMenu.SetActive(true);
+                CharacterSelectionMenu.SetActive(false);
+
+                //switching stat panels
+                player3HUD.transform.localPosition = new Vector3(-409, 87, 0);
+
+                playerHUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player1HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player2HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+
+                //switching the characters                
+                playerPrefab3.transform.localPosition = new Vector3(-3, 1, -6);
+
+                playerPrefab.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab1.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab2.transform.localPosition = new Vector3(-20, 1, -6);
+
+            }
+            if (CharcurrentSelection == 1 & bState == ButtonState.Switch)
+            {
+                //naiden
+                charState = CharacterState.Naiden;
+                bState = ButtonState.Combat;
+
+                ActionsMenu.SetActive(true);
+                CharacterSelectionMenu.SetActive(false);
+
+                //switching stat panels
+                player1HUD.transform.localPosition = new Vector3(-409, 87, 0);
+
+                playerHUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player2HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player3HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+                //switching the characters
+                playerPrefab1.transform.localPosition = new Vector3(-3, 1, -6);
+
+                playerPrefab.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab2.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab3.transform.localPosition = new Vector3(-20, 1, -6);
+            }
+            else if (CharcurrentSelection == 2 & bState == ButtonState.Switch)
+            {
+                //beta
+                charState = CharacterState.Beta;
+                bState = ButtonState.Combat;
+
+                ActionsMenu.SetActive(true);
+                CharacterSelectionMenu.SetActive(false);
+
+                //switching stat panels
+                player2HUD.transform.localPosition = new Vector3(-409, 87, 0);
+
+                playerHUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player1HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                player3HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+
+                //switching the characters                
+                playerPrefab2.transform.localPosition = new Vector3(-3, 1, -6);
+
+                playerPrefab.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab1.transform.localPosition = new Vector3(-20, 1, -6);
+                playerPrefab3.transform.localPosition = new Vector3(-20, 1, -6);
+            }
+            if (CharcurrentSelection == 3 & bState == ButtonState.Switch)
+            {
+                //frost
+                /* charState = CharacterState.Frost;
+                 bState = ButtonState.Combat;
+
+
+                 ActionsMenu.SetActive(true);
+                 CharacterSelectionMenu.SetActive(false);
+
+                 //switching stat panels
+                 player3HUD.transform.localPosition = new Vector3(-409, 87, 0);
+
+                 playerHUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                 player1HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+                 player2HUD.transform.localPosition = new Vector3(-1600, 0, 0);
+
+
+                 //switching the characters                
+                 playerPrefab3.transform.localPosition = new Vector3(-3, 1, -6);
+
+                 playerPrefab.transform.localPosition = new Vector3(-20, 1, -6);
+                 playerPrefab1.transform.localPosition = new Vector3(-20, 1, -6);
+                 playerPrefab2.transform.localPosition = new Vector3(-20, 1, -6);
+             }*/
+
+
+                //gameObject.SetActive(false);
+            }
+>>>>>>> Viktor
         }
     }
 }
