@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
+    path: Assets/Scenes/Beginning.unity
+    guid: 92349cc2d6f04024d9cc035224b274a5
   - enabled: 1
-    path: Assets/Scenes/test.unity
+    path: Assets/Scenes/Battle1 (Tutorial).unity
+    guid: 408341b137d866a42a90140b7ae84834
+  - enabled: 1
+    path: Assets/Scenes/Weazel Defeated.unity
+    guid: f281238d04bd295408e8177c76192d76
+  - enabled: 1
+    path: Assets/Scenes/Battle2 (first normal battle).unity
+    guid: 6e2ef081e0381604a9818401f89b4b15
+  - enabled: 1
+    path: Assets/Scenes/Battle4 (Boss).unity
     guid: 62a36c602cc5a574fbfa9861e300a9a6
   m_configObjects: {}

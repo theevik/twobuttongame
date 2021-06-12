@@ -7,6 +7,7 @@ public class Unit1 : MonoBehaviour
     public string unitName;
     public int unitLevel;
     public int damage;
+    public int heavydamage;
     public int maxHP;
     public int currentHP;
     public int healing;
@@ -35,6 +36,16 @@ public class Unit1 : MonoBehaviour
 
     }
 
+    public bool BetaHeal(int healing)
+    {
+        currentHP += healing;
+        if (currentHP <= 150)
+            return true;
+        else
+            return false;
+
+    }
+
     public bool ConsumeMana1(int losemana)
     {
         mana -= losemana;
@@ -53,5 +64,13 @@ public class Unit1 : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    void Update()
+    {
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
     }
 }

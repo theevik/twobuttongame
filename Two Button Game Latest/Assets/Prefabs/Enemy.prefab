@@ -78,11 +78,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68387d90ac843754d8ad8cb971d770df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Enemy
+  unitName: BATKATAAA
   unitLevel: 0
-  damage: 30
-  maxHP: 160
-  currentHP: 160
+  damage: 35
+  heavydamage: 0
+  maxHP: 200
+  currentHP: 200
   healing: 40
   maxMana: 1000
   mana: 1000

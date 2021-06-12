@@ -8,6 +8,7 @@ public class Unit : MonoBehaviour
     public string unitName;
     public int unitLevel;
     public int damage;
+    public int heavydamage;
     public int maxHP;
     public int currentHP;
     public int healing;
@@ -15,6 +16,8 @@ public class Unit : MonoBehaviour
     public int mana;
     public int losemana;
     public int gainmana;
+
+    
 
     public bool TakeDamage(int dmg)
     {
@@ -30,6 +33,16 @@ public class Unit : MonoBehaviour
     {
         currentHP += healing;
         if (currentHP <= 60)
+            return true;
+        else
+            return false;
+
+    }
+
+    public bool BetaHeal(int healing)
+    {
+        currentHP += healing;
+        if (currentHP <= 150)
             return true;
         else
             return false;
@@ -55,4 +68,14 @@ public class Unit : MonoBehaviour
         else
             return false;
     }
+
+    // making sure overhealing from Beta is impossible
+    void Update()
+    {
+        if (currentHP > maxHP)
+        {
+            currentHP = maxHP;
+        }
+    }
 }
+
